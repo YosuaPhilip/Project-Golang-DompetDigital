@@ -1,3 +1,4 @@
+# Project-Golang-DompetDigital
 # Wallet Service (Golang)
 
 Implements:
@@ -8,22 +9,13 @@ Implements:
 ## Run (Docker)
 ```bash
 docker compose up --build
+001_create_wallets
 ```
 
-## Apply migrations
-```bash
-# open psql inside db container
-docker exec -it $(docker ps -qf name=db) psql -U wallet -d walletdb
-
-# then run:
-\i /migrations/001_create_wallets.sql
-\i /migrations/002_create_transactions.sql
-```
-
-Or from host:
-```bash
-docker exec -i $(docker ps -qf name=db) psql -U wallet -d walletdb < migrations/001_create_wallets.sql
-docker exec -i $(docker ps -qf name=db) psql -U wallet -d walletdb < migrations/002_create_transactions.sql
+## query create table
+```run query for create table in database
+001_create_wallets
+002_create_transactions
 ```
 
 ## API
@@ -42,4 +34,3 @@ POST `/api/v1/wallet/withdraw`
 
 Notes:
 - Withdraw uses DB transaction + `SELECT ... FOR UPDATE` to avoid race condition.
-
