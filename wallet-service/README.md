@@ -28,12 +28,6 @@ docker exec -i $(docker ps -qf name=db) psql -U wallet -d walletdb < migrations/
 
 ## API
 
-### Ensure Wallet (helper)
-POST `/api/v1/wallet/ensure`
-```json
-{ "user_id": 1 }
-```
-
 ### Balance Inquiry
 GET `/api/v1/wallet/balance?user_id=1`
 
@@ -43,10 +37,9 @@ POST `/api/v1/wallet/withdraw`
 {
   "user_id": 1,
   "amount": 50000,
-  "reference_id": "wd-20260204-0001"
 }
 ```
 
 Notes:
 - Withdraw uses DB transaction + `SELECT ... FOR UPDATE` to avoid race condition.
-- Optional idempotency supported using `reference_id`.
+
